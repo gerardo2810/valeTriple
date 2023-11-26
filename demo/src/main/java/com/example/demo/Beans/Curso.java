@@ -7,7 +7,7 @@ public class Curso {
     private int idCurso;
     private String codigo;
     private String nombre;
-    private Facultad idFacultad;
+    private int idFacultad;
     private Timestamp fechaRegistro;
     private Timestamp fechaEdicion;
 
@@ -35,11 +35,11 @@ public class Curso {
         this.nombre = nombre;
     }
 
-    public Facultad getIdFacultad() {
+    public int getIdFacultad() {
         return idFacultad;
     }
 
-    public void setIdFacultad(Facultad idFacultad) {
+    public void setIdFacultad(int idFacultad) {
         this.idFacultad = idFacultad;
     }
 

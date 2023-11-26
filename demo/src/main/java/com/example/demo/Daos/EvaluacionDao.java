@@ -27,10 +27,7 @@ public class EvaluacionDao extends DaoBase{
                 evaluaciones.setCorreoEstudiantes(rs.getString(4));
                 evaluaciones.setNota(rs.getInt(5));
 
-                /*Curso curso = new Curso();
-                curso=rs.getString()
-                evaluaciones.setIdCurso();
-                lista.add(evaluaciones);*/
+                lista.add(evaluaciones);
             }
         } catch (SQLException ex) {
             Logger.getLogger(EvaluacionDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,8 +45,8 @@ public class EvaluacionDao extends DaoBase{
             statement.setString(2, codigo);
             statement.setString(3, correoEstudiante);
             statement.setInt(4, nota);
-            statement.setInt(5,idCurso);
-            statement.setInt(6,idSem);
+            statement.setInt(5, idCurso);
+            statement.setInt(6, idSem);
 
             statement.executeUpdate();
         }
@@ -59,17 +56,13 @@ public class EvaluacionDao extends DaoBase{
     public void editarEvaluacion(int idEvaluaciones,String nombreEstudiante, String codigo, String correoEstudiante, int nota) throws SQLException {
         String query = "UPDATE evaluaciones SET nombre_estudiantes=?, codigo_estudiantes=?, correo_estudiantes=?, nota=? " +
                 "WHERE idevaluaciones=?";
-
         try (Connection conn = this.getConection();
              PreparedStatement statement = conn.prepareStatement(query);) {
             statement.setString(1, nombreEstudiante);
             statement.setString(2, codigo);
             statement.setString(3, correoEstudiante);
             statement.setInt(4, nota);
-            statement.setInt(6, idEvaluaciones);
-
-
-
+            statement.setInt(5, idEvaluaciones);
             statement.executeUpdate();
         }
     }

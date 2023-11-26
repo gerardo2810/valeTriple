@@ -65,22 +65,17 @@
         <tbody>
         <%
             for (Evaluaciones e : listaEvaluaciones) {
+                String nombreCurso = (e.getIdCurso() != null) ? e.getIdCurso().getNombre() : "Curso no especificado";
+                String nombreSemestre = (e.getIdSemestre() != null) ? e.getIdSemestre().getNombre() : "Semestre no especificado";
         %>
         <tr>
-            <td><%= e.getIdEvaluaciones()%>
-            </td>
-            <td><%= e.getNombreEstudiantes()%>
-            </td>
-            <td><%= e.getCodigoEstudiantes()%>
-            </td>
-            <td><%= e.getCorreoEstudiantes()%>
-            </td>
-            <td><%= e.getIdCurso().getNombre() %>
-            </td>
-            <td><%= e.getIdSemestre().getNombre() %>
-            </td>
-            <td><%= e.getNota() %>
-            </td>
+            <td><%= e.getIdEvaluaciones()%></td>
+            <td><%= e.getNombreEstudiantes()%></td>
+            <td><%= e.getCodigoEstudiantes()%></td>
+            <td><%= e.getCorreoEstudiantes()%></td>
+            <td><%= nombreCurso %></td>
+            <td><%= nombreSemestre %></td>
+            <td><%= e.getNota() %></td>
             <% if(usuarioLogueado != null && usuarioLogueado.getIdUsuario() > 0) {%>
             <td>
                 <a href="<%=request.getContextPath()%>/CouseTeachServlet?action=editar&id=<%= e.getIdEvaluaciones()%>"
@@ -89,7 +84,7 @@
                 </a>
             </td>
             <td>
-                <a onclick="return confirm('¿Estas seguro de borrar?');"
+                <a onclick="return confirm('¿Estás seguro de borrar?');"
                    href="<%=request.getContextPath()%>/CouseTeachServlet?action=borrar&id=<%= e.getIdEvaluaciones()%>"
                    type="button" class="btn btn-danger">
                     <i class="bi bi-trash"></i>
@@ -100,6 +95,7 @@
         <%
             }
         %>
+
         </tbody>
     </table>
     <jsp:include page="../includes/footer.jsp"/>

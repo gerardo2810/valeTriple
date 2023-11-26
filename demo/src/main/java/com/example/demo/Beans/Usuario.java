@@ -1,18 +1,15 @@
 package com.example.demo.Beans;
 
-import java.sql.Timestamp;
-import java.time.DateTimeException;
-
 public class Usuario {
     private int idUsuario;
     private String nombre;
     private String correo;
     private String password;
-    private Rol idRol;
-    private Timestamp ultimoIngreso;
+    private int idRol;
+    private String ultimoIngreso;
     private int cantidadIngresos;
-    private Timestamp fechaRegistro;
-    private Timestamp fechaEdicion;
+    private String fechaRegistro;
+    private String fechaEdicion;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -46,21 +43,6 @@ public class Usuario {
         this.password = password;
     }
 
-    public Rol getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Rol idRol) {
-        this.idRol = idRol;
-    }
-
-    public Timestamp getUltimoIngreso() {
-        return ultimoIngreso;
-    }
-
-    public void setUltimoIngreso(Timestamp ultimoIngreso) {
-        this.ultimoIngreso = ultimoIngreso;
-    }
 
     public int getCantidadIngresos() {
         return cantidadIngresos;
@@ -70,19 +52,36 @@ public class Usuario {
         this.cantidadIngresos = cantidadIngresos;
     }
 
-    public Timestamp getFechaRegistro() {
+
+    public String getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Timestamp fechaRegistro) {
+    public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Timestamp getFechaEdicion() {
+    public String getFechaEdicion() {
         return fechaEdicion;
     }
 
-    public void setFechaEdicion(Timestamp fechaEdicion) {
+    public void setFechaEdicion(String fechaEdicion) {
         this.fechaEdicion = fechaEdicion;
+    }
+
+    public String getUltimoIngreso() {
+        return ultimoIngreso;
+    }
+
+    public void setUltimoIngreso(String ultimoIngreso) {
+        this.ultimoIngreso = ultimoIngreso;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
+
+    public int getIdRol() {
+        return idRol;
     }
 }

@@ -1,13 +1,13 @@
 package com.example.demo.Daos;
 
+import com.example.demo.Beans.Evaluaciones;
 import com.example.demo.Beans.Rol;
 import com.example.demo.Beans.Usuario;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuariosDao extends DaoBase{
     public ArrayList<Usuario> buscarUsuariosPorNombre(String nombre) {
@@ -38,18 +38,36 @@ public class UsuariosDao extends DaoBase{
     }
 
     private void fetchUsuarioData(Usuario usuario, ResultSet rs) throws SQLException {
-        // Ajusta estos métodos según la estructura exacta de tu clase Usuario y la tabla usuario
         usuario.setIdUsuario(rs.getInt("idusuario"));
         usuario.setNombre(rs.getString("nombre"));
         usuario.setCorreo(rs.getString("correo"));
-        usuario.setPassword(rs.getString("password"));
-
-        Rol rol = new Rol();
-        rol.setIdRol(rs.getInt("idrol"));
-        rol.setNombre(rs.getString("nombre"));
-        usuario.setIdRol(rol);
+        usuario.setPassword(rs.getString("password"));;
+        usuario.setIdRol(rs.getInt("idrol"));
     }
+    public ArrayList<Usuario> listar() {
 
+        ArrayList<Usuario> lista = new ArrayList<>();
+
+        String sql = "SELECT nombre, correo, idrol, cantidad_ingresos, fecha_registro,fecha_edicion FROM usuario";
+
+        try (Connection conn = this.getConection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setNombre(rs.getString(1));
+                usuario.setCorreo(rs.getString(2));
+                usuario.setIdRol(rs.getInt(3));
+                usuario.setCantidadIngresos(rs.getInt(4));
+                usuario.setFechaRegistro(rs.getString(5));
+                usuario.setFechaEdicion(rs.getString(6));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
+    }
 
     public boolean validarUsuarioPassword(String username, String password){
 
@@ -96,7 +114,43 @@ public class UsuariosDao extends DaoBase{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
         return usuario;
     }
+    public void registrarUsuario(String nombre,String correo, int nota,int idrol) throws SQLException {
+        String query = "INSERT INTO usuario (nombre_estudiantes, correo_estudiantes, password,idrol,cantidad_ingresos,fecha_registro,fecha_edicion) " +
+                "VALUES (?,?,?,?,?,?,?,?)";
+
+        try (Connection conn= this.getConection();
+             PreparedStatement statement = conn.prepareStatement(query);) {
+            statement.setString(1, nombre);
+            statement.setString(2, correo);
+            statement.setInt(3, nota);
+            statement.setInt(4, idrol);
+
+            statement.executeUpdate();
+        }
+    }
+    public void editarUsuario(int idUsuario,String nombre, String codigo, String correoEstudiante, int nota) throws SQLException {
+        String query = "UPDATE usuario SET nombre=?, correo=?, password=?, idrol=?, cantidad_ingresos=?, fecha_registro=?,fecha_edicion=?" +
+                "WHERE idusuario=?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement statement = conn.prepareStatement(query);) {
+            statement.setString(1, nombre);
+            statement.setInt(6, idUsuario);
+            statement.executeUpdate();
+        }
+    }
+
+    public void eliminarUsuario(int idUsuario) throws SQLException {
+        String query = "DELETE FROM evaluaciones WHERE idevaluaciones=? AND idsemestre=?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement statement = conn.prepareStatement(query);) {
+            statement.setInt(1, idUsuario);
+            statement.executeUpdate();
+        }
+    }
+
+
 }

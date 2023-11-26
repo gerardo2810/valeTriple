@@ -1,6 +1,5 @@
 package com.example.demo.Beans;
 
-import java.sql.Timestamp;
 
 public class Evaluaciones {
     private int idEvaluaciones;
@@ -10,8 +9,8 @@ public class Evaluaciones {
     private int nota;
     private Curso idCurso;
     private Semestre idSemestre;
-    private Timestamp fechaRegistro;
-    private Timestamp fechaEdicion;
+    private String fechaRegistro;
+    private String fechaEdicion;
 
     public int getIdEvaluaciones() {
         return idEvaluaciones;
@@ -69,19 +68,20 @@ public class Evaluaciones {
         this.idSemestre = idSemestre;
     }
 
-    public Timestamp getFechaRegistro() {
+
+    public String getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Timestamp fechaRegistro) {
+    public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Timestamp getFechaEdicion() {
+    public String getFechaEdicion() {
         return fechaEdicion;
     }
 
-    public void setFechaEdicion(Timestamp fechaEdicion) {
+    public void setFechaEdicion(String fechaEdicion) {
         this.fechaEdicion = fechaEdicion;
     }
 }

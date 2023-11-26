@@ -1,81 +1,96 @@
 <%@page import="java.util.ArrayList" %>
-<%@page import="com.example.demo.Beans.Evaluaciones" %>
 <%@ page import="com.example.demo.Beans.Usuario" %>
+<%@ page import="com.example.demo.Beans.Curso" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<jsp:useBean type="java.util.ArrayList<com.example.demo.Beans.Evaluaciones>" scope="request" id="lista"/>
-<jsp:useBean type="com.example.demo.Beans.Usuario" scope="session" id="docente"/>
+<jsp:useBean id="listaCursos" type="java.util.ArrayList<com.example.demo.Beans.Curso>" scope="request"/>
 
+<jsp:useBean id="usuarioLogueado" class="com.example.demo.Beans.Usuario" type="com.example.demo.Beans.Usuario" scope="session" />
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lista Evaluaciones</title>
+    <title>Lista Cursos</title>
     <jsp:include page="../includes/headCss.jsp"></jsp:include>
 </head>
 <body>
 <div class='container'>
     <jsp:include page="../includes/navbar.jsp">
-        <jsp:param name="currentPage" value="evaluacion"/>
+        <jsp:param name="currentPage" value="emp"/>
     </jsp:include>
     <div class="row mb-5 mt-4">
         <div class="col-md-7">
-            <h1>Lista de Evaluaciones</h1>
+            <h1>Lista de cursos</h1>
         </div>
-        <!-- Puedes agregar un enlace para agregar nuevas evaluaciones aquí si es necesario -->
+        <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
+            <a href="<%= request.getContextPath()%>/DecanoCourseServlet?action=agregar" class="btn btn-primary">Agregar
+                nuevo curso</a>
+        </div>
     </div>
-    <% if (session.getAttribute("msg") != null) {%>
-    <div class="alert alert-success" role="alert"><%=session.getAttribute("msg")%>
+    <% if (request.getParameter("msg") != null) {%>
+    <div class="alert alert-success" role="alert"><%=request.getParameter("msg")%>
     </div>
-    <%
-            session.removeAttribute("msg");
-        } %>
+    <% } %>
     <% if (request.getParameter("err") != null) {%>
     <div class="alert alert-danger" role="alert"><%=request.getParameter("err")%>
     </div>
     <% } %>
     <table class="table">
+        <thead>
         <tr>
             <th>#</th>
-            <th>Nombre Estudiante</th>
-            <th>Código Estudiante</th>
-            <th>Correo Estudiante</th>
-            <th>Nota</th>
-            <!-- Agrega más columnas según sea necesario -->
+            <th>Id Curso</th>
+            <th>Nombre</th>
+            <th>Codigo</th>
+            <th>Id Facultad</th>
+            <th>Fecha Registro</th>
+            <th>Fecha Edicion</th>
+            <% if(usuarioLogueado != null && usuarioLogueado.getIdUsuario() > 0) {%>
             <th></th>
             <th></th>
+            <% } %>
         </tr>
+        </thead>
+        <tbody>
         <%
             int i = 1;
-            for (Evaluaciones evaluacion : lista) {
-                // Verifica si la evaluación pertenece al curso del Docente
-                if (evaluacion.getIdCurso().equals(usuario.getCurso())) {
+            for (Curso curso : listaCursos) {
         %>
         <tr>
-            <td><%=i%></td>
-            <td><%=evaluacion.getNombreEstudiantes()%></td>
-            <td><%=evaluacion.getCodigoEstudiantes()%></td>
-            <td><%=evaluacion.getCorreoEstudiantes()%></td>
-            <td><%=evaluacion.getNota()%></td>
-            <!-- Agrega más celdas según sea necesario -->
+            <td><%= i%>
+            </td>
+            <td><%=curso.getIdCurso()%></td>
+            <td><%= curso.getNombre()%>
+            </td>
+            <td><%= curso.getCodigo()%>
+            </td>
+            <td><%= curso.getIdFacultad()%>
+            </td>
+            <td><%= curso.getFechaRegistro()%>
+            </td>
+            <td><%= curso.getFechaEdicion()%>
+            </td>
+            <% if(usuarioLogueado != null && usuarioLogueado.getIdUsuario() > 0) {%>
             <td>
-                <!-- Enlace para editar evaluación -->
-                <a href="<%=request.getContextPath()%>/DocenteServlet?action=editar&idEvaluacion=<%=evaluacion.getIdEvaluaciones()%>">
-                    Editar
+                <a href="<%=request.getContextPath()%>/DecanoCourseServlet?action=editar&id=<%= curso.getIdCurso()%>"
+                   type="button" class="btn btn-primary">
+                    <i class="bi bi-pencil-square"></i>
                 </a>
             </td>
             <td>
-                <!-- Enlace para eliminar evaluación -->
-                <a href="<%=request.getContextPath()%>/DocenteServlet?action=borrar&idEvaluacion=<%=evaluacion.getIdEvaluaciones()%>">
-                    Borrar
+                <a onclick="return confirm('¿Estas seguro de borrar?');"
+                   href="<%=request.getContextPath()%>/DecanoCourseServlet?action=editar&id=<%= curso.getIdCurso()%>"
+                   type="button" class="btn btn-danger">
+                    <i class="bi bi-trash"></i>
                 </a>
             </td>
+            <% } %>
         </tr>
         <%
-                    i++;
-                }
+                i++;
             }
         %>
+        </tbody>
     </table>
+    <jsp:include page="../includes/footer.jsp"/>
 </div>
-<jsp:include page="../includes/footer.jsp"/>
 </body>
 </html>
