@@ -6,15 +6,19 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 public class DaoBase {
-    public Connection getConnection() throws SQLException {
+    public Connection getConection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-        }catch (ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        String user = "root";
-        String pass= "root";
-        String url="jdbc:mysql://localhost:3306/hr?serverTimezone=America/Lima";
-        return DriverManager.getConnection(url,user,pass);
+
+        String username = "root";
+        String password = "root";
+        String database = "lab9";
+        String url = "jdbc:mysql://localhost:3306/" + database;
+
+        return DriverManager.getConnection(url, username, password);
+
     }
 }
