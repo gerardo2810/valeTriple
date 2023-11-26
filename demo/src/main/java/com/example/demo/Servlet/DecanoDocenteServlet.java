@@ -108,7 +108,6 @@ public class DecanoDocenteServlet extends HttpServlet {
                 case "guardar":
                     String nombre = request.getParameter("first_name");
                     String correo = request.getParameter("email");
-                    String contraseña= request.getParameter("contraseña");
 
                     usuariosDao.registrarUsuario(nombre,correo,4,1);
                     response.sendRedirect("DecanoDocenteServlet?msg=Evaluacion creada exitosamente");

@@ -38,7 +38,7 @@
             <th>Nombre</th>
             <th>Correo</th>
             <th>Rol</th>
-            <th>Commision</th>
+            <th>Cantidad ingresos</th>
             <th>Fecha Registro </th>
             <th>Fecha Edision </th>
             <% if(usuarioLogueado != null && usuarioLogueado.getIdUsuario() > 0) {%>
@@ -59,6 +59,7 @@
             </td>
             <td><%= usuario.getCorreo()%>
             </td>
+            <td><%=usuario.getIdRol()%></td>
             <td><%=  usuario.getCantidadIngresos()%>
             </td>
             <td><%= usuario.getFechaRegistro()%>

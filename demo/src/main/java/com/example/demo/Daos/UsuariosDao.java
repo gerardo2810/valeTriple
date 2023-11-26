@@ -62,6 +62,7 @@ public class UsuariosDao extends DaoBase{
                 usuario.setCantidadIngresos(rs.getInt(4));
                 usuario.setFechaRegistro(rs.getString(5));
                 usuario.setFechaEdicion(rs.getString(6));
+                lista.add(usuario);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
