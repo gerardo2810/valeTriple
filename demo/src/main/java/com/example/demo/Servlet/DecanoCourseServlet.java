@@ -1,5 +1,6 @@
 package com.example.demo.Servlet;
 
+import com.example.demo.Beans.Curso;
 import com.example.demo.Beans.Usuario;
 import com.example.demo.Daos.CursoDao;
 import com.example.demo.Daos.EvaluacionDao;
@@ -33,68 +34,18 @@ public class DecanoCourseServlet extends HttpServlet {
                 view = request.getRequestDispatcher("decano/newCourse.jsp");
                 view.forward(request, response);
                 break;
-                /*
             case "editar":
-                HttpSession httpSession = request.getSession();
-                Usuario usuario = (Usuario) httpSession.getAttribute("usuarioLogueado");
-
-                if(usuario != null && usuario.getIdUsuario() > 0) {
-                    if (request.getParameter("id") != null) {
-                        String evIdString = request.getParameter("id");
-                        int evId = 0;
-                        try {
-                            evId = Integer.parseInt(evIdString);
-                        } catch (NumberFormatException ex) {
-                            response.sendRedirect("CouseTeachServlet");
-                        }
-
-                        Curso emp = cursoDao.obtenerEvaluacionPorId(evId);
-
-                        if (emp != null) {
-                            request.setAttribute("curso", emp);
-                            //request.setAttribute("listaTrabajos", jobDao.listarTrabajos());
-                            //request.setAttribute("listaDepartamentos", departmentDao.listaDepartamentos());
-                            //request.setAttribute("listaJefes", employeeDao.listarEmpleados());
-                            view = request.getRequestDispatcher("decano/udpateCourse.jsp");
-                            view.forward(request, response);
-                        } else {
-                            response.sendRedirect("DecanoCourseServlet");
-                        }
-
-                    } else {
-                        response.sendRedirect("DecanoCourseServlet");
-                    }
-                } else {
-                    response.sendRedirect("DecanoCourseServlet");
-                }
+                int idCurso=Integer.parseInt(request.getParameter("id"));
+                Curso curso = cursoDao.obtenerEvaluacionPorId(idCurso);
+                request.setAttribute("curso",curso);
+                view=request.getRequestDispatcher("decano/udpateCourse");
+                view.forward(request,response);
                 break;
-
             case "borrar":
-                if (request.getParameter("id") != null) {
-                    String evIdString = request.getParameter("id");
-                    int evId = 0;
-                    try {
-                        evId = Integer.parseInt(evIdString);
-                    } catch (NumberFormatException ex) {
-                        response.sendRedirect("DecanoCourseServlet?err=Error al borrar el curso");
-                    }
-
-                    Curso curso = cursoDao.obtenerEvaluacionPorId(evId);
-
-                    if (curso != null) {
-                        //try {
-                          //  evaluacionDao.eliminarEvaluacion(evId);
-                            //response.sendRedirect("CouseTeachServlet?msg=Empleado borrado exitosamente");
-                        //} catch (SQLException e) {
-                          //  response.sendRedirect("CouseTeachServlet?err=Error al borrar el empleado");
-                        //}
-                    }
-                } else {
-                    response.sendRedirect("DecanoCourseServlet?err=Error al borrar el empleado");
-                }
-                break;
+                /*cursoDao.eliminarCurso(Integer.parseInt(request.getParameter("id")));
+                response.sendRedirect("DecanoCourseServlet?msg=Curso borrado ");*/
             default:
-                response.sendRedirect("DecanoCourseServlet");*/
+                response.sendRedirect("DecanoCourseServlet");
         }
     }
 
@@ -115,6 +66,7 @@ public class DecanoCourseServlet extends HttpServlet {
                     response.sendRedirect("DecanoServlet?msg=Curso creado exitosamente");
                     break;
                 case "editar":
+                    String nom=request.getParameter("n");
                     break;
 
             }
