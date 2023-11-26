@@ -1,0 +1,35 @@
+INSERT INTO `rol` (`nombre`) VALUES
+('Decano'),
+('Docente');
+
+INSERT INTO `usuario` (`nombre`, `correo`, `password`, `idrol`, `ultimo_ingreso`, `cantidad_ingresos`, `fecha_registro`, `fecha_edicion`)
+VALUES
+('DecanoUsuario', 'decano@pucp.edu.pe', 'password_decano', 1, NULL, 0, NOW(), NOW()),
+('DocenteUsuario', 'docente@pucp.edu.pe', 'password_docente', 2, NULL, 0, NOW(), NOW());
+
+INSERT INTO `universidad` (`iduniversidad`, `nombre`, `logo_url`, `idadministrador`, `fecha_registro`, `fecha_edicion`)
+VALUES (1, 'Pontificia Universidad Católica del Perú', 'url_logo', 1, NOW(), NOW());
+
+INSERT INTO `facultad` (`nombre`, `iduniversidad`, `fecha_registro`, `fecha_edicion`)
+VALUES ('Facultad de Ciencias e Ingeniería', 1, NOW(), NOW());
+
+INSERT INTO `curso` (`codigo`, `nombre`, `idfacultad`, `fecha_registro`, `fecha_edicion`)
+VALUES ('C001', 'Curso de Ejemplo 1', 2, NOW(), NOW());
+INSERT INTO `curso` (`codigo`, `nombre`, `idfacultad`, `fecha_registro`, `fecha_edicion`)
+VALUES ('C002', 'Curso de Ejemplo 2', 2, NOW(), NOW());
+
+INSERT INTO `curso_has_docente` (`idcurso`, `iddocente`)
+VALUES
+(4, 2);  -- Asignar DocenteUsuario al Curso de Ejemplo 1
+
+INSERT INTO `semestre` (`idsemestre`, `nombre`, `idadmistrador`, `habilitado`, `fecha_registro`, `fecha_edicion`)
+VALUES (1, 'Primer Semestre', 1, 1, NOW(), NOW());
+INSERT INTO `semestre` (`idsemestre`, `nombre`, `idadmistrador`, `habilitado`, `fecha_registro`, `fecha_edicion`)
+VALUES (1, 'Segundo Semestre', 2, 1, NOW(), NOW());
+
+
+INSERT INTO `evaluaciones` (`nombre_estudiantes`, `codigo_estudiantes`, `correo_estudiantes`, `nota`, `idcurso`, `idsemestre`, `fecha_registro`, `fecha_edicion`)
+VALUES
+('Estudiante1', 'E001', 'estudiante1@pucp.edu.pe', 18, 4, 1, NOW(), NOW()),
+('Estudiante2', 'E002', 'estudiante2@pucp.edu.pe', 20, 4, 1, NOW(), NOW());
+
